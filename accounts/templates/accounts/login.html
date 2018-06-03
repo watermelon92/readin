@@ -1,0 +1,73 @@
+{% load static %} <!DOCTYPE html>
+{% load widget_tweaks %}
+<html style="height:100%">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="{% static 'docs/css/bulma.css' %}">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+</head>
+
+<body style="height:100%;background-image:url({% static 'docs/dust_scratches.png' %});border:1px solid transparent;
+">
+
+<div class="container"
+     style="width:360px;margin-top:60px;display:flex;flex-direction:column;align-items:center;">
+    <div class="image" style="height:40px;width:180px;margin-top:30px;margin-bottom:30px;">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'docs/readin-logo.png' %}"/>
+        </a>
+    </div>
+
+    <form action="{% url 'login' %}" style="width:80%" method="post" novalidate>
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div class="notification is-danger" role="alert">
+            <button class="delete"></button>
+            {% for error in form.non_field_errors %}
+            {{ error }}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+
+        {% for field in form %}
+        <div class="field" style="">
+            <label class="label">{{ field.label}}</label>
+
+            {% if form.is_bound %}
+
+            {% if field.errors %}
+            {% render_field field class="input is-danger" %}
+            {% for error in field.errors %}
+            <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+            {% else %}
+            {% render_field field class="input is-success" %}
+            {% endif %}
+
+            {% else %}
+            {% render_field field class="input" %}
+            {% endif %}
+        </div>
+        {% endfor %}
+
+
+        <button type="submit" class="button is-primary" style="width:100%">Login</button>
+
+    </form>
+    <P class="is-size-7" style="margin-top:8px">Not a member?<a class="has-text-weight-semibold"
+                                                                href="{% url 'signup'%}">Sign Up now</a></P>
+
+</div>
+
+</body>
+
+</html>
+

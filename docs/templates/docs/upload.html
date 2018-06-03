@@ -1,0 +1,125 @@
+{% load static %} <!DOCTYPE html>
+{% load widget_tweaks %}
+<html style="height:100%">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>upload</title>
+    <link rel="stylesheet" href="{% static 'docs/css/bulma.css' %}">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+</head>
+
+<body style="height:100%;background-image:url(./static/dust_scratches.png);border:1px solid transparent;
+">
+
+<form class="container"
+      style="width:360px;height:360px;border:1px solid transparent;margin-top:100px;display:flex;flex-direction:column;align-items:center"
+      action="{% url 'upload' %}" method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    <div class="image" style="height:40px;width:180px;margin-top:30px">
+        <img src="{% static 'docs/readin-logo.png' %}"/>
+    </div>
+
+    {% if form.non_field_errors %}
+    <div class="notification is-danger" role="alert">
+        <button class="delete"></button>
+        {% for error in form.non_field_errors %}
+        {{ error }}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
+    <!--名称输入-->
+    <div class="field" style="margin-top:30px;width:80%">
+        <label class="label">{{ form.projectname.label}}</label>
+
+        <!--<div class="control">-->
+        <!--<input class="input" type="text" placeholder="type your project name" value="bulma">-->
+        <!--</div>-->
+
+        {% if form.is_bound %}
+
+        {% if form.projectname.errors %}
+        {% render_field form.projectname class="input is-danger" %}
+        {% for error in form.projectname.errors %}
+        <p class="help is-danger">{{ error }}</p>
+        {% endfor %}
+        {% else %}
+        {% render_field form.projectname class="input is-success" %}
+        {% endif %}
+
+        {% else %}
+        {% render_field form.projectname class="input" placeholder="type your project name"  %}
+        {% endif %}
+    </div>
+
+    <!--文件上传-->
+    <div class="field" style="margin-top:10px;width:80%">
+        <label class="label">{{ form.axurefile.label}}</label>
+
+        <div class="file is-boxed">
+            <label class="file-label">
+
+                <!--<input class="file-input" type="file" name="resume" id='file'>-->
+
+                {% if form.is_bound %}
+
+                {% if form.axurefile.errors %}
+
+                {% render_field form.axurefile class="file-input is-danger" id='file' accept="application/zip" %}
+
+                {% for error in form.axurefile.errors %}
+                <p class="help is-danger">{{ error }}</p>
+                {% endfor %}
+                {% else %}
+                {% render_field form.axurefile class="file-input is-success" id='file' accept="application/zip"%}
+                {% endif %}
+
+                {% else %}
+                {% render_field form.axurefile class="file-input" id='file' accept="application/zip" %}
+                {% endif %}
+
+
+                <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label" id='filename'>
+                  Choose a file…
+                </span>
+              </span>
+            </label>
+        </div>
+    </div>
+
+    <!--提交按钮-->
+    <div class="field is-grouped" style="margin-top:10px;width:80%">
+        <div class="control">
+            <button class="button is-primary">Submit</button>
+        </div>
+        <div class="control">
+            <a class="button is-text" href="{% url 'docs' %}">Cancel</a>
+        </div>
+    </div>
+
+
+</form>
+
+</body>
+
+<script>
+
+    var file = document.getElementById("file");
+    file.onchange = function () {
+        if (file.files.length > 0) {
+
+            document.getElementById('filename').innerHTML = file.files[0].name;
+
+        }
+    };
+</script>
+
+</html>

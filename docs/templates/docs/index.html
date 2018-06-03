@@ -1,0 +1,49 @@
+{% extends 'docs/base.html' %}
+{% load static %}
+
+{% block title %}Welcome to readin{% endblock %}
+
+{% block content %}
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand" style="font-family: 'Leckerli One', cursive;">
+      <a class="navbar-item" href="#">
+        <img src="{% static 'docs/readin-logo.png' %}" />
+      </a>
+
+      <div class="navbar-burger" data-target="SignupAndLoginin">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <div id="SignupAndLoginin" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="button is-primary" style="margin-right:10px" href="{% url 'login' %}">Login</a>
+          <a class="button is-white" href="{% url 'signup' %}">Sign Up</a>
+        </div>
+      </div>
+    </div>
+
+  </nav>
+
+  <section class="hero is-primary is-large is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Redefine prd reading experience
+          </h1>
+          <h2 class="subtitle">
+            Just click login
+          </h2>
+        </div>
+      </div>
+    </section>
+
+
+
+
+{% endblock %}
+
