@@ -32,7 +32,7 @@ SECRET_KEY = 'bt67)l4#c9er)xhdr#m&m#9ld16+h1irs(@-y*-iy6r^6_n+m6'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS=['localhost ','127.0.0.1','readin.club','www.readin.club']
 
