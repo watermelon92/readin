@@ -61,7 +61,7 @@
                 <div class="media-content">
                     <div class="content">
                         <p class="is-size-7">
-                            <a href="{% url 'storage' doc.fileUrl %}" target="_Blank" class="is-size-6 has-text-weight-semibold has-text-grey-dark">{{doc.name}}</a>
+                            <a href="uploadedfiles/{{ doc.fileUrl }}" target="_Blank" class="is-size-6 has-text-weight-semibold has-text-grey-dark">{{doc.name}}</a>
                             <br> {{doc.last_updated|naturaltime}}
                         </p>
                     </div>

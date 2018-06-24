@@ -17,7 +17,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 
 import os
-# from decouple import config,Csv
+import raven
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,10 +32,8 @@ SECRET_KEY = 'bt67)l4#c9er)xhdr#m&m#9ld16+h1irs(@-y*-iy6r^6_n+m6'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = config('DEBUG', default=False, cast=bool)
 DEBUG = True
 
-# ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 ALLOWED_HOSTS=['localhost ','127.0.0.1','readin.club','www.readin.club']
 
 # Application definition
@@ -52,7 +50,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
 
     'docs',
-    'accounts'
+    'accounts',
+    'raven.contrib.django.raven_compat',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +145,24 @@ LOGOUT_REDIRECT_URL = 'home'
 MEDIA_URL = '/uploadedfiles/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploadedfiles')
 
+#邮件设置
+# MAILER_LIST = ['shahid@trialx.com']
+#
+# EMAIL_HOST = 'smtp.XXXX’
+#
+# EMAIL_HOST_USER = 'abc'
+#
+# EMAIL_HOST_PASSWORD = ‘password’
+#
+# EMAIL_PORT = 587
+#
+# EMAIL_USE_TLS = True
+#
+# DEFAULT_FROM_EMAIL = 'info@trialx.com'
+
+RAVEN_CONFIG = {
+    'dsn': 'https://ee57b23c95c244d5acce78d5a9766cac:09e3cca9746141dab10058c616930a5d@sentry.io/1223345',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
+}
