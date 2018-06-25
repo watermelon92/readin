@@ -19,7 +19,7 @@ def handle_uploaded_file(f, num, new_dir_name):
                 os.makedirs(right_fn, mode=0o777)
                 continue
 
-            with open(right_fn, 'wb', encoding='utf-8') as output_file:  # 创建并打开新文件
+            with open(right_fn, 'wb') as output_file:  # 创建并打开新文件
                 with zf.open(fn, 'r') as origin_file:  # 打开原文件
                     shutil.copyfileobj(origin_file, output_file)  # 将原文件内容复制到新文件
 
