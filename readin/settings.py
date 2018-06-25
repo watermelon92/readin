@@ -147,7 +147,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'uploadedfiles')
 
 #邮件设置
 # MAILER_LIST = ['shahid@trialx.com']
-#
+#s
 # EMAIL_HOST = 'smtp.XXXX’
 #
 # EMAIL_HOST_USER = 'abc'
