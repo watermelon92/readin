@@ -1,9 +1,5 @@
 import os, zipfile, hashlib, sys,shutil
 from django.conf import settings
-import sys
-
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 UPLOAD_FILES_DIR = os.path.join(settings.BASE_DIR, 'uploadedfiles')
 
