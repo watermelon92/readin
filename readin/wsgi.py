@@ -15,4 +15,3 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "readin.settings")
 
 application = get_wsgi_application()
 
-env = LANG=en_US.UTF-8
