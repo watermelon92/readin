@@ -1,4 +1,4 @@
-import os, zipfile, hashlib, sys,shutil,codecs
+import os, zipfile, hashlib, sys, shutil, codecs
 from django.conf import settings
 
 UPLOAD_FILES_DIR = os.path.join(settings.BASE_DIR, 'uploadedfiles')
@@ -19,7 +19,7 @@ def handle_uploaded_file(f, num, new_dir_name):
                 os.makedirs(right_fn, mode=0o777)
                 continue
 
-            with codecs.open(right_fn, 'wb',encoding='utf-8') as output_file:  # 创建并打开新文件
+            with codecs.open(right_fn, 'w+', encoding='utf-8') as output_file:  # 创建并打开新文件
                 with zf.open(fn, 'r') as origin_file:  # 打开原文件
                     shutil.copyfileobj(origin_file, output_file)  # 将原文件内容复制到新文件
 
@@ -41,9 +41,9 @@ def handle_filedir(str):
 
     return hl.hexdigest()
 
-def renameFile(old_dir,new_dir):
+def renameFile(old_dir, new_dir):
     lists = os.listdir(old_dir)
     for item in lists:
         path = os.path.join(old_dir,item)
         if os.path.isdir(path):
-            os.rename(path,new_dir)
+            os.rename(path, new_dir)
