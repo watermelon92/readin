@@ -16,7 +16,7 @@ def handle_uploaded_file(f, num, new_dir_name):
             right_fn = os.path.join(release_file_dir, right_fn)
 
             if right_fn[-1] == '/':
-                os.makedirs(right_fn, mode=0o777)
+                os.makedirs(right_fn, mode=0o777) #创建文件夹
                 continue
 
             with codecs.open(right_fn, 'w+', encoding='utf-8') as output_file:  # 创建并打开新文件
