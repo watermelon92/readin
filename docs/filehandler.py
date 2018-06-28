@@ -20,7 +20,7 @@ def handle_uploaded_file(f, num, new_dir_name):
                 continue
 
             with open(right_fn, 'wb') as output_file:  # 创建并打开新文件
-                with zf.open(fn, 'r') as origin_file:  # 打开原文件
+                with zf.open(fn, 'rb') as origin_file:  # 打开原文件
                     shutil.copyfileobj(origin_file, output_file)  # 将原文件内容复制到新文件
 
         renameFile(release_file_dir,new_dir)
