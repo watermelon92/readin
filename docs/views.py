@@ -35,16 +35,18 @@ def upload(request):
             file.fileUrl = 'sample'
             file.save()
 
-            username = request.user.username
-            now = str(int(time.time()))
-            username_now_name = username + now
+            # username = request.user.username
+            # now = str(int(time.time()))
 
-            filedirname = handle_filedir(username_now_name)
+            # username_now_name = username + now
+            # filedirname = handle_filedir(username_now_name)
 
             file_number = str(file.id)
 
-            file.fileLocation = handle_uploaded_file(request.FILES['axurefile'],file_number,filedirname)
-            file.fileUrl = os.path.join(str(file_number),filedirname,'index.html')
+            file_tuple = handle_uploaded_file(request.FILES['axurefile'],file_number)
+
+            file.fileLocation = file_tuple[0]
+            file.fileUrl = file_tuple[1]
 
             file.save()
 
@@ -63,7 +65,7 @@ def delete(request,id):
 
 
 @login_required
-def edit(request,id):
+def edit(request, id):
     doc = Doc.objects.get(id=id)
     if doc.owner == request.user:
         if request.method == 'POST':
@@ -72,20 +74,22 @@ def edit(request,id):
                 doc.name = form.cleaned_data['projectname']
 
                 if 'axurefile' in request.FILES:
-                    filedirname = doc.fileUrl.split('/')[1]
+                    # filedirname = doc.fileUrl.split('/')[1]
                     while Path(doc.fileLocation).is_dir():
                         shutil.rmtree(doc.fileLocation)
 
                     file_number = str(doc.id)
 
-                    doc.fileLocation = handle_uploaded_file(request.FILES['axurefile'], file_number, filedirname)
-                    doc.fileUrl = os.path.join(str(file_number), filedirname, 'index.html')
+                    # doc.fileLocation = handle_uploaded_file(request.FILES['axurefile'], file_number)
+                    # doc.fileUrl = os.path.join(str(file_number), filedirname, 'index.html')
 
-                doc.save()
+                    file_tuple = handle_uploaded_file(request.FILES['axurefile'], file_number)
+                    doc.fileLocation = file_tuple[0]
+                    doc.fileUrl = file_tuple[1]
 
                 return HttpResponseRedirect('/docs/')
         else:
-            data = {'projectname':doc.name}
+            data = {'projectname': doc.name}
             form = EditFileForm(data)
 
-        return render(request, 'docs/edit.html', {'form': form,'doc':doc})
+        return render(request, 'docs/edit.html', {'form': form, 'doc': doc})
