@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UploadFileForm,EditFileForm
 
 from .models import Doc
-from .filehandler import handle_uploaded_file,handle_filedir
+from .filehandler import handle_uploaded_file
 
 import os,shutil,time
 from pathlib import Path
