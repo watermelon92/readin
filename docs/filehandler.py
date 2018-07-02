@@ -1,12 +1,13 @@
+# coding=utf-8
 import os, zipfile, hashlib, sys
 from django.conf import settings
 
 UPLOAD_FILES_DIR = os.path.join(settings.BASE_DIR, 'uploadedfiles')
 
 
-def handle_uploaded_file(f, num):
+def handle_uploaded_file(f, num, des_dir_name):
     release_file_dir = os.path.join(UPLOAD_FILES_DIR, str(num))
-    # new_dir = os.path.join(release_file_dir,new_dir_name)
+    des_dir = os.path.join(release_file_dir, des_dir_name)
     file_root = ''
     with zipfile.ZipFile(f, 'r') as zf:
         for fn in zf.namelist():
@@ -22,11 +23,11 @@ def handle_uploaded_file(f, num):
             with open(abs_right_fn, 'wb') as output_file:  # 创建并打开新文件
                 output_file.write(zf.read(fn))
 
-        # renameFile(release_file_dir, new_dir)
-        file_location = os.path.join(release_file_dir, file_root)
-        file_url = os.path.join(str(num), file_root, 'index.html')
+        origin_dir = os.path.join(release_file_dir, file_root)
+        os.rename(origin_dir, des_dir)
+        file_url = os.path.join(str(num), des_dir_name, 'index.html')
 
-        file_tuple = (file_location, file_url)
+        file_tuple = (des_dir, file_url)
 
         return file_tuple
 
@@ -37,8 +38,9 @@ def handle_uploaded_file(f, num):
 # 4、把地址存到数据库
 # 5、做一个路由函数处理
 
-
-# def handle_filedir(str):
+#
+# def handle_filedir():
+#     time = time()
 #     hl = hashlib.md5()
 #     hl.update(str.encode(encoding='utf-8'))
 #

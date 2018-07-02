@@ -6,7 +6,7 @@ from .forms import UploadFileForm,EditFileForm
 from .models import Doc
 from .filehandler import handle_uploaded_file
 
-import os,shutil,time
+import os, shutil, time
 from pathlib import Path
 
 
@@ -35,15 +35,9 @@ def upload(request):
             file.fileUrl = 'sample'
             file.save()
 
-            # username = request.user.username
-            # now = str(int(time.time()))
-
-            # username_now_name = username + now
-            # filedirname = handle_filedir(username_now_name)
-
+            des_dir_name = str(int(time.time()))
             file_number = str(file.id)
-
-            file_tuple = handle_uploaded_file(request.FILES['axurefile'],file_number)
+            file_tuple = handle_uploaded_file(request.FILES['axurefile'], file_number, des_dir_name)
 
             file.fileLocation = file_tuple[0]
             file.fileUrl = file_tuple[1]
@@ -54,6 +48,7 @@ def upload(request):
     else:
         form = UploadFileForm()
     return render(request, 'docs/upload.html', {'form': form})
+
 
 @login_required
 def delete(request,id):
