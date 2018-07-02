@@ -67,6 +67,7 @@ def edit(request, id):
             form = EditFileForm(request.POST, request.FILES)
             if form.is_valid():
                 doc.name = form.cleaned_data['projectname']
+                print(doc.name)
 
                 if 'axurefile' in request.FILES:
                     des_dir_name = doc.fileUrl.split('/')[1]
@@ -78,6 +79,7 @@ def edit(request, id):
                     file_tuple = handle_uploaded_file(request.FILES['axurefile'], file_number, des_dir_name)
                     doc.fileLocation = file_tuple[0]
                     doc.fileUrl = file_tuple[1]
+                doc.save()
 
                 return HttpResponseRedirect('/docs/')
         else:
