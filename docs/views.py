@@ -69,16 +69,13 @@ def edit(request, id):
                 doc.name = form.cleaned_data['projectname']
 
                 if 'axurefile' in request.FILES:
-                    # filedirname = doc.fileUrl.split('/')[1]
+                    des_dir_name = doc.fileUrl.split('/')[1]
                     while Path(doc.fileLocation).is_dir():
                         shutil.rmtree(doc.fileLocation)
 
                     file_number = str(doc.id)
 
-                    # doc.fileLocation = handle_uploaded_file(request.FILES['axurefile'], file_number)
-                    # doc.fileUrl = os.path.join(str(file_number), filedirname, 'index.html')
-
-                    file_tuple = handle_uploaded_file(request.FILES['axurefile'], file_number)
+                    file_tuple = handle_uploaded_file(request.FILES['axurefile'], file_number, des_dir_name)
                     doc.fileLocation = file_tuple[0]
                     doc.fileUrl = file_tuple[1]
 

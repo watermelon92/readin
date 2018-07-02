@@ -1,5 +1,5 @@
 # coding=utf-8
-import os, zipfile, hashlib, sys
+import os, zipfile, sys
 from django.conf import settings
 
 UPLOAD_FILES_DIR = os.path.join(settings.BASE_DIR, 'uploadedfiles')
@@ -30,25 +30,3 @@ def handle_uploaded_file(f, num, des_dir_name):
         file_tuple = (des_dir, file_url)
 
         return file_tuple
-
-
-# 1、接收上传文件
-# 2、创建路径upload/docid/datetime
-# 3、解压文件到该文件夹下
-# 4、把地址存到数据库
-# 5、做一个路由函数处理
-
-#
-# def handle_filedir():
-#     time = time()
-#     hl = hashlib.md5()
-#     hl.update(str.encode(encoding='utf-8'))
-#
-#     return hl.hexdigest()
-
-# def renameFile(old_dir, new_dir):
-#     lists = os.listdir(old_dir)
-#     for item in lists:
-#         path = os.path.join(old_dir,item)
-#         if os.path.isdir(path):
-#             os.rename(path, new_dir)
